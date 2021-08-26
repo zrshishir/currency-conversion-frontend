@@ -1,6 +1,27 @@
 # P2P Wallet (Pay) System
     A Simple app that convert currencies from USD to EUR and vice-versa.
 
+# Overview:
+    The app goal is to build a simple P2P wallet (Pay) system.
+
+## Scenario:
+    There are two registered users with a single currency based wallet. User
+    A has a USD and user B has a EUR wallet. User A can send any amount of money
+    to user B in USD currency. This USD amount will be converted to EUR and
+    transferred to user B wallet. In the meantime, a confirmation email will be sent to
+    user B.
+
+    You will find detailed requirements below. To be successful you don’t have to follow
+    them strictly. Invest reasonable time depending on your free time and don’t worry if
+    you can’t finish it all. Focus on the quality of your code, not on the number of
+    tasks. Make it readable, expandable and production-ready. Make sure you deal
+    with possible errors etc. Please read the requirements and additional
+    requirements carefully.
+
+    Feel free to ask any questions. Write down any significant problems you
+    encountered. Let us know how you solved them or how you would tackle them if you
+    had more time.
+
 ## Tech Specifications
 	- "nodejs": "12"
 	- "npm" : "6"
