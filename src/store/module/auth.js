@@ -9,7 +9,6 @@ const state = {
     successStatus: "",
     responseMsg: "",
     test: "",
-    url: window.localStorage.getItem('url')
 };
 
 const getters = {
@@ -29,7 +28,7 @@ const getters = {
             return [
                 {
                     title: 'Product', items:[
-                        {icon:'face', title: 'Product', link: '/product'},
+                        {icon:'face', title: 'Product', link: '/currency'},
                     ]
                 },
             ]
@@ -56,25 +55,17 @@ const getters = {
 };
 
 const actions = {
-    async login ({commit}, allLogData) {
-        const response = await api.login(allLogData, 'login')
+    async login ({commit}, parameters) {
+        const response = await api.login(parameters[0], parameters[1])
         commit('setTest', response)
         if(response.data.error){
             commit('setAuthResponse', response)
             router.push('/signin')
         }else{
             commit('setToken', response)
-            window.localStorage.setItem('e-token', response.data.data.token)
-            window.localStorage.setItem('url', response.data.data.url)
-            router.push('/')
+            window.localStorage.setItem('e-token', response.data.data.users.api_token)
+            router.push('/currency')
         }
-    },
-
-    async logout({ commit }){ // we use commit instead of mutations there are several reasons for that. there might be several request  
-        commit('setToken', "")
-        window.localStorage.removeItem('e-token')
-        window.localStorage.removeItem('url')
-        router.push('/')
     },
 
     setErrorZero({commit}){
@@ -90,8 +81,8 @@ const mutations = {
             state.successStatus = 200
             state.responseMsg = "You have successfully logged out."
         }else{
-            state.token = response.data.data.token
-            state.url = response.data.data.url
+            state.token = response.data.data.users.api_token
+            // state.url = response.data.data.url
             state.error = response.data.error
             state.successStatus = response.data.statusCode
             state.responseMsg = response.data.message
@@ -99,7 +90,7 @@ const mutations = {
        
     },
     setTest: (state, response) => {
-        state.test = response.data.data
+        state.test = response
     },
     setAuthResponse: (state, response) => {
         state.test = response.data

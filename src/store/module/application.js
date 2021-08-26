@@ -1,4 +1,5 @@
 import api from '../../api/cconversion-frontend'
+import router from "../../router";
 // import router from '../../router';
 
 const state = {
@@ -39,6 +40,16 @@ const actions = {
     async setThirdHighest({commit}, parameters){
         const response = await api.fetchThirdHighest(parameters[0], parameters[1])
         commit('setThirdHighestResponse', response)
+    },
+
+
+    async logout({rootState, commit }){
+        const{ token } = rootState.auth
+        commit('setToken', "")
+        window.localStorage.removeItem('e-token')
+        window.localStorage.removeItem('url')
+        await api.logout(token,'logout')
+        router.push('/')
     },
     
     setErrorZero({commit}){

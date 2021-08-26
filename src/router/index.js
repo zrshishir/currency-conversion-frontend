@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import About from '../views/About.vue'
 import AuthHandler from '../views/auth/AuthHandler'
 import Signin from '../views/auth/Signin'
-import Product from '../views/product/Product'
+import Product from '../views/currency/CurrencyConversion'
 
 
 Vue.use(VueRouter)
@@ -14,8 +14,8 @@ Vue.use(VueRouter)
     { path: '/oauth2/callback', name: 'auth handler', component: AuthHandler},
     { path: '/signin', name: 'signin', component: Signin},
 
-    //product
-    { path: '/product', name: 'Product', component: Product},
+    //currency
+    { path: '/currency', name: 'Product', component: Product},
 ]
 
 const router = new VueRouter({

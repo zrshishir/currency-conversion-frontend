@@ -41,7 +41,7 @@
                     :disabled="!valid"
                     v-if="allLogData.email && allLogData.password"
                     color="success"
-                    @click="login(allLogData)"
+                    @click="signin"
                     >
                     Submit
                     </v-btn>
@@ -66,9 +66,10 @@
     </v-container>
 </template>
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import {mapGetters} from 'vuex'
   export default {
     data: () => ({
+      apiUrl: 'login',
       valid: true,
       allLogData:{
         email: '',
@@ -91,7 +92,10 @@ import {mapGetters, mapActions} from 'vuex'
     },
 
     methods: {
-      ...mapActions(['login']),
+      signin () {
+        console.log(this.allLogData)
+        this.$store.dispatch('login', [this.apiUrl, this.allLogData])
+      },
       validate () {
         if (this.password != this.confirm_password) {
           return this.show1 = true

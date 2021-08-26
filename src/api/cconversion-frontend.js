@@ -6,7 +6,7 @@ const ROOT_URL = 'http://local.cconversion.com/api';
 
 export default{
     
-    login(loginCredentials, secondUrl){
+    login(secondUrl, loginCredentials){
         return axios.post(`${ROOT_URL}/${secondUrl}`, loginCredentials,{
             headers:{
                 'Content-Type': 'application/json'
@@ -33,6 +33,15 @@ export default{
 
     storeData(token, secondUrl, storeData){
         return axios.post(`${ROOT_URL}/${secondUrl}`, storeData,{
+            headers:{
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+
+    logout(token, secondUrl){
+        return axios.get(`${ROOT_URL}/${secondUrl}`,{
             headers:{
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
