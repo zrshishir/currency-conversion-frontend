@@ -42,7 +42,6 @@ const actions = {
         commit('setThirdHighestResponse', response)
     },
 
-
     async logout({rootState, commit }){
         const{ token } = rootState.auth
         commit('setToken', "")
@@ -50,6 +49,19 @@ const actions = {
         window.localStorage.removeItem('url')
         await api.logout(token,'logout')
         router.push('/')
+    },
+
+    async setIndexData({rootState, commit}, parameters){
+        const{ token } = rootState.auth
+        const response = await api.fetchData(token, parameters[0])
+        commit('setResponse', response)
+    },
+
+    async store({rootState, commit},parameters){
+        const { token } = rootState.auth
+        const response = await api.storeData(token, parameters[0], parameters[1])
+        commit('setResponse', response)
+        // router.push('/currency')
     },
     
     setErrorZero({commit}){

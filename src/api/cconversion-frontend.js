@@ -31,6 +31,15 @@ export default{
         })
     },
 
+    fetchData(token, apiUrl){
+        return axios.get(`${ROOT_URL}/${apiUrl}`,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+
     storeData(token, secondUrl, storeData){
         return axios.post(`${ROOT_URL}/${secondUrl}`, storeData,{
             headers:{

@@ -27,13 +27,13 @@
         </template>
         <v-data-table
             :headers="headers"
-            :items="indexData"
+            :items="indexData.transactions"
             sort-by="active"
             class="elevation-1"
         >
             <template v-slot:top>
             <v-toolbar flat color="blue dark-accent 4">
-                <v-toolbar-title class="font-weight-bold">Product</v-toolbar-title>
+                <v-toolbar-title class="font-weight-bold">Balance Transfer</v-toolbar-title>
                 <v-divider
                 class="mx-4"
                 inset
@@ -48,7 +48,7 @@
                     class="mb-2"
                     v-bind="attrs"
                     v-on="on"
-                    >New Product</v-btn>
+                    >Transfer Balance</v-btn>
                 </template>
                 <v-card>
                     <v-card-title>
@@ -59,33 +59,16 @@
                     <v-container>
                         <v-row>
                           <v-col cols="12" sm="6" md="6">
-                              <v-text-field v-model="editedItem.title" label="Title"></v-text-field>
+                            <v-select
+                                v-model="defaultItem.receiver_id"
+                                :items="indexData.users"
+                                item-text="name"
+                                item-value="id"
+                                label="Select Receiver"
+                            ></v-select>
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
-                              <!-- <v-textarea
-                                name="input-7-1"
-                                label="Description"
-                                value=""
-                                v-model="editedItem.description"
-                                hint="description"
-                              ></v-textarea> -->
-                              <v-text-field v-model="editedItem.description" label="Description"></v-text-field>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="12" sm="6" md="6">
-                              <v-text-field v-model="editedItem.price" label="Price"></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="6">
-                            <input
-                                type="file"
-                                
-                                ref="image"
-                                accept="image/*"
-                                @change="onFilePicked"
-                              >
-                              <!-- <v-file-input accept=".png" v-model="editedItem.image" label="Image"></v-file-input> -->
-                              <!-- <v-text-field v-model="editedItem.image" label="Image"></v-text-field> -->
+                              <v-text-field v-model="defaultItem.amount" label="Amount"></v-text-field>
                           </v-col>
                         </v-row>
                     </v-container>
@@ -99,24 +82,6 @@
                 </v-card>
                 </v-dialog>
             </v-toolbar>
-            </template>
-            <template v-slot:item.image="{ item }">
-                <img :src="getUrl + item.image" style="width: 50px; height: 50px" />
-            </template>
-            <template v-slot:item.actions="{ item }">
-            <v-icon
-                small
-                class="mr-2"
-                @click="editItem(item)"
-            >
-                mdi-pencil
-            </v-icon>
-            <v-icon
-                small
-                @click="deleteItem(item)"
-            >
-                mdi-delete
-            </v-icon>
             </template>
             <template v-slot:no-data>
             <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -159,35 +124,30 @@ import { mapGetters } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
-      apiUrl: 'product',
+      apiUrl: 'transactions',
+      convertApiUrl: 'convert',
       alert:true,
       headers: [
-        { text: 'Title', align: 'start', value: 'title'},
-        { text: 'Description', value: 'description' },
-        { text: 'Price', value: 'price' },
-        { text: 'Image', value: 'image' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'My Currency', value: 'sender.currency' },
+        { text: 'My Amount', value: 'amount' },
+        { text: 'Rate', value: 'rate' },
+        { text: 'Receiver Amount', value: 'converted_amount' },
+        { text: 'Receiver Currency', value: 'receiver.currency' },
+        { text: 'Receiver Name', align: 'start', value: 'receiver.name'},
+        { text: 'Receiver Email', value: 'receiver.email' },
       ],
       items: [0 , 1],
       editedIndex: -1,
-      editedItem: {
-        title: '',
-        description: '',
-        price: '',
-        image: '',
-      },
       defaultItem: {
-        title: '',
-        description: '',
-        price: '',
-        image: '',
+        receiver_id: '',
+        amount: '',
       },
     }),
 
     computed: {
         ...mapGetters(['isLoggedIn', 'indexData', 'error', 'statusCode', 'errorMsg', 'getUrl']),
       formTitle () {
-        return this.editedIndex === -1 ? 'New Product' : 'Edit Product'
+        return this.editedIndex === -1 ? 'Balance Transfer' : 'Balance Transfer'
       },
     },
 
@@ -210,51 +170,15 @@ import { mapGetters } from 'vuex'
         this.$store.dispatch('setErrorZero')
       },
 
-      editItem (item) {
-        this.editedIndex = this.indexData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        const index = this.indexData.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.indexData.splice(index, 1)
-        this.$store.dispatch('delete', [this.apiUrl, item.id])
-      },
-
       close () {
         this.dialog = false
         this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         })
       },
 
-      onFilePicked (e) {
-        const files = e.target.files
-        if(files[0] !== undefined) {
-          this.editedItem.image = files[0].name
-          
-          if(this.editedItem.image.lastIndexOf('.') <= 0) {
-            return
-          }
-          const fr = new FileReader ()
-          fr.readAsDataURL(files[0])
-          fr.addEventListener('load', () => {
-            this.editedItem.image = fr.result
-            // this.editedItem.imageUrl = files[0] // this is an image file that can be sent to server...
-          })
-        } 
-      },
-
       save () {
-        if (this.editedIndex > -1) {
-          this.$store.dispatch('store', [this.apiUrl, this.editedItem])
-          // Object.assign(this.indexData[this.editedIndex], this.editedItem)
-        } else {
-          this.$store.dispatch('store', [this.apiUrl, this.editedItem])
-          // this.indexData.push(this.editedItem)
-        }
+        this.$store.dispatch('store', [this.convertApiUrl, this.defaultItem])
         this.close()
       },
     },

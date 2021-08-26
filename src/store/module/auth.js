@@ -27,8 +27,8 @@ const getters = {
         }else{
             return [
                 {
-                    title: 'Product', items:[
-                        {icon:'face', title: 'Product', link: '/currency'},
+                    title: 'Currency Conversion', items:[
+                        {icon:'dollar', title: 'Currency Conversion', link: '/currency'},
                     ]
                 },
             ]

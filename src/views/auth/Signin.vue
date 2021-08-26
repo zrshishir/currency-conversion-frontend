@@ -93,7 +93,6 @@ import {mapGetters} from 'vuex'
 
     methods: {
       signin () {
-        console.log(this.allLogData)
         this.$store.dispatch('login', [this.apiUrl, this.allLogData])
       },
       validate () {
