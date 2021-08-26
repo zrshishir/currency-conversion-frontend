@@ -1,4 +1,5 @@
-# product front end crud project
+# P2P Wallet (Pay) System
+    A Simple app that convert currencies from USD to EUR and vice-versa.
 
 ## Tech Specifications
 	- "nodejs": "12"
@@ -12,16 +13,18 @@
 
 ### Features
 	1. Authentication, warning messages and success messages
-	2. Sign up page with front end validation
-	3. Sign in page with front end validation
-	4. Log out functionalities
-	5. Product module with data tables and pagination
-	6. Product creation form with success message
-	7. Image upload functionality using base64 encoded
+	2. Sign in page with front end validation
+	3. Log out functionalities with api integration
+	4. Transaction module with data tables and pagination
+	5. Currency Conversion form with success message
+    6. Currency Conversion with authentication
+	7. Accessing All 3 required reports on home page with third highest conversion without authentication.
+    8. Fully respnsive design
+    9. Layered based project structured.
 
 ## Project setup
-	Project setup details are described below step by step: The backend api for this project is [here](https://github.com/zrshishir/product-backend)
-		1. Download or clone the project from [Product Frontend](git@github.com:zrshishir/cconversion-frontend.git). 
+	Project setup details are described below step by step: The backend api for this project is [here](https://github.com/zrshishir/currency-conversion)
+		1. Download or clone the project from [Currency Conversion Frontend](git@github.com:zrshishir/currency-conversion-frontend.git). 
 		2. Go to the project's root directory and run the command `npm install`
 		3. Go to the `/src/api` directory and edit the `cconversion-frontend.js`. Assign your domain name with `ROOT_URL`. 
 			`const ROOT_URL = 'your-domain-name/api'`
@@ -33,15 +36,15 @@
 	1. To install this project you will have node installed. I will describe it using `npm`. You can install this project two ways
 		- Download the zip file from the repository and extract it on your pc
 
-		- clone the project using git and the command is `git clone git@github.com:zrshishir/cconversion-frontend.git`. 
+		- clone the project using git and the command is `git clone git@github.com:zrshishir/currency-conversion-frontend.git`. 
 
-![git clone](/screenshots/1.png)
+![git clone](/screenshots/git_clone.png)
 
 	2. Go to the project's root directory and run the command `npm install`
 
-![go to root directory](/screenshots/2.png)
+![go to root directory](/screenshots/go_to_root_directory.png)
 
-![npm install](/screenshots/3.png)
+![npm install](/screenshots/npm_install.png)
 
 	3. Go to the `/src/api` directory and edit the `cconversion-frontend.js`. Assign your domain name with `ROOT_URL`. 
 			`const ROOT_URL = 'your-domain-name/api'`
@@ -50,44 +53,35 @@
 
 	4. Go to your root direcotory and run `npm run serve`
 
-![run the project](/screenshots/npm-run-serve.png)
+![run the project](/screenshots/npm_run_serve.png)
 
 ### Some screenshots of the project
-	1. Home page 
+	1. Home page & Reports accessing without authentication
 
-![home page](/screenshots/4.png)
+![home page](/screenshots/home_and_report.png)
 
-	2. Sign up or Registration page
+	2. Third highest conversion for specifc user or receiver
 
-![sign up](/screenshots/5.png)
-
-![sign up validation page](/screenshots/6.png)
+![sign up](/screenshots/report_data_3.png)
 
 	3. Login or Sign in page
 
-![sign in page](/screenshots/7.png)
+![sign in page](/screenshots/signin_menu.png)
+![sign in page](/screenshots/login_page.png)
 
-	4. Registration or login message on home page with log out button and product menu
+	4. login message on home page with log out button and Project menu
 
-![message home page](/screenshots/8.png)
+![message home page](/screenshots/home_report_page.png)
 
-	5. Product page
+	5. Currency Conversion page
 
-![product page](/screenshots/9.png)
+![product page](/screenshots/currency_conversion_page.png)
 
-	6. Product creation page
+	6. Balance Transfer Form
 
-![product creation page](/screenshots/10.png)
+![product creation page](/screenshots/balance_transform_form.png)
 
-	7. Product edit page
+	7. Balance Transfer Form with user data
 
-![product edit page](/screenshots/11.png)
-
-	8. Product delete page
-
-![product delete](/screenshots/12.png)
-
-	9. Log out message					
-
-![log out message on home page](/screenshots/13.png)
+![product edit page](/screenshots/with_user_data.png)
 
