@@ -31,7 +31,7 @@
 		4. Go to your root direcotory and run `npm run serve`
 
 
-### screenshots of working procedure details
+### Screenshots of project setup details
 	The working procedure is described below with screenshots:
 	1. To install this project you will have node installed. I will describe it using `npm`. You can install this project two ways
 		- Download the zip file from the repository and extract it on your pc
@@ -49,7 +49,7 @@
 	3. Go to the `/src/api` directory and edit the `cconversion-frontend.js`. Assign your domain name with `ROOT_URL`. 
 			`const ROOT_URL = 'your-domain-name/api'`
 
-![root url setting](/screenshots/root_url.png)
+![root url setting](/screenshots/root_url_setup.png)
 
 	4. Go to your root direcotory and run `npm run serve`
 
@@ -58,9 +58,9 @@
 ### Some screenshots of the project
 	1. Home page & Reports accessing without authentication
 
-![home page](/screenshots/home_and_report.png)
+![home page](/screenshots/home_report_page.png)
 
-	2. Third highest conversion for specifc user or receiver
+	2. Third highest conversion for specifc user or receiver. To see this click on receiver email.
 
 ![sign up](/screenshots/report_data_3.png)
 
@@ -79,7 +79,7 @@
 
 	6. Balance Transfer Form
 
-![product creation page](/screenshots/balance_transform_form.png)
+![product creation page](/screenshots/balance_transfer_form.png)
 
 	7. Balance Transfer Form with user data
 
